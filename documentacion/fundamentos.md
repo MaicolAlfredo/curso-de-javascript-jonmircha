@@ -2,6 +2,8 @@
 
 1. [Introducción](#introducción)
 1. [Caracteristica y Gramática](#caracteristica-y-gramática)
+1. [9.undefined, null & NaN](#9-undefined-null--nan)
+1. [10. Funciones](#10-funciones)
 
 ## Introducción
 
@@ -306,5 +308,583 @@ Estos no almacenan el valor directamente, sino una referencia a la memoria donde
 - 🔹 Compuestos → Se accede por referencia y pueden modificarse en memoria.
 
 ➡ Próximo tema: Variables en JavaScript y diferencias entre var, let y const.
+
+[indice](#fundamentos-jonmircha)
+
+## 9. undefined, null & NaN
+
+Bueno, vamos a continuar. En la clase anterior vimos los tipos de dato boolean y en esta clase vamos a hablar de los valores primitivos que les he puesto en esta lista. undefined y NaN son casos muy particulares de JavaScript, y a veces hay cierta confusión, sobre todo entre null y undefined. Pero bueno, en esta clase voy a tratar de desmitificar todos esos conceptos que a veces se pueden malentender.
+
+Primero, ¿qué es undefined? undefined va a indicar un valor ausente. Fíjense que tanto null como undefined representan un valor ausente, es decir, una variable que no tiene valor. La gran diferencia es que, mientras undefined es una variable que no ha sido inicializada, null es un valor que el programador asigna intencionalmente.
+
+Por ejemplo, recuerden que en clases anteriores, cuando les explicaba las cadenas de texto y empezaba a concatenar cierto contenido a una variable, en algún momento hice una variable sin asignarle valor. Entonces, cuando nosotros como programadores hacemos ese tipo de prácticas, JavaScript detecta el valor de dicha variable como undefined.
+
+Para ilustrarlo:
+
+```js
+let indefinida;
+console.log(indefinida);
+```
+
+Si quiero que JavaScript le detecte el valor undefined, simplemente no le asigno valor.
+
+Por otro lado, si asignamos el valor null, estamos diciendo intencionalmente que esa variable está vacía. Aquí un ejemplo:
+
+```js
+let vacia = null;
+console.log(vacia);
+```
+
+Diferencia clave:
+
+- undefined es cuando JavaScript detecta que la variable no tiene valor.
+- null es cuando el programador le asigna explícitamente ese valor especial.
+
+Recuerda que ambos significan que la variable está vacía, pero la diferencia es que undefined no ha sido inicializada, mientras que con null el programador le asigna ese valor.
+
+Finalmente, hay otro tipo de valor que a veces nos ocurre cuando, por ejemplo, hacemos operaciones aritméticas entre diferentes tipos de datos que no son numéricos. Esto puede generar un valor especial llamado NaN (Not a Number).
+
+Ejemplo de código para generar NaN:
+
+```js
+let noEsUnNumero = "texto" * 3.5;
+console.log(noEsUnNumero);
+```
+
+En este caso, JavaScript nos está diciendo que no puede realizar una operación matemática entre una cadena de texto y un número, por lo que devuelve NaN.
+
+En resumen:
+NaN significa "No es un número".
+
+Se genera cuando intentamos hacer operaciones con valores que no son numéricos.
+
+Básicamente, con esto cerramos la parte de los tipos primitivos. En el siguiente vídeo comenzaremos con los tipos compuestos o complejos, empezando con las funciones, y más adelante veremos objetos, arreglos, clases, etc. Habrá un apartado especial en este curso sobre programación orientada a objetos donde explicaremos conceptos como prototipos, clases, etc.
+
+[indice](#fundamentos-jonmircha)
+
+## 10. Funciones
+
+En la clase anterior terminamos de ver los tipos de datos primitivos: string, number, boolean, y los tres últimos, particulares de JavaScript: undefined, Null y NaN (Not a Number). Ahora vamos a empezar a trabajar con los tipos de datos compuestos o complejos. Comenzaremos con las funciones, porque los objetos y los arreglos suelen necesitar el uso de funciones. Por eso considero que lo mejor es empezar con este tipo de datos.
+
+En los lenguajes de programación, generalmente, la mayoría de las acciones suceden dentro de funciones. ¿Qué es una función? Simplemente, es un bloque de código autocontenido, es decir, que tiene su propio contenido independiente del ámbito global. Hablamos de esto cuando vimos las variables y su alcance. Una función se define una sola vez y puede ejecutarse en cualquier momento. En otras palabras, es un fragmento de código que puedes declarar una vez y reutilizar tantas veces como sea necesario.
+
+Además, una función puede o no recibir parámetros, que son datos separados por comas, y también puede devolver valores o no, según el caso.
+
+Particularmente en JavaScript, las funciones son un tipo de dato especial, ya que también se consideran objetos. En el ámbito técnico de JavaScript, se dice que las funciones son "ciudadanos de primer orden" o "de primera clase". ¿Qué significa esto? Que las funciones en JavaScript son muy poderosas, ya que pueden asignarse como valores, pasarse como argumentos e incluso devolverse como resultado de otras funciones. Imagina que dentro de una función, en lugar de retornar una cadena de texto, un número o un valor booleano, puedes retornar la ejecución de otra función.
+
+Desde ECMAScript 2015 (ES6), tenemos muchas características interesantes en el manejo de funciones. Un ejemplo de ello son las funciones flecha o arrow functions, que no veremos en este vídeo porque primero necesitamos entender otros conceptos, como la palabra reservada this.
+
+Vamos a ver los conceptos básicos de una función y las diferentes formas de declararla o expresarla. Existen dos maneras principales de crear funciones en JavaScript: funciones declaradas y funciones expresadas. También veremos la diferencia entre usar una u otra.
+
+Primero, observemos una función declarada. Para trabajar con una función declarada, usamos la palabra reservada function. Una función siempre llevará paréntesis y llaves {}, y dentro de las llaves estará el cuerpo de la función. Además, hay que darle un nombre. Por ejemplo, "estoEsUnaFunción". Como mencioné, una función es un bloque de líneas de código que se ejecutan al unísono.
+
+Imaginemos que quiero que esta función ejecute varios mensajes en la consola, por ejemplo:
+```js
+function estoEsUnaFuncion() {
+  console.log("uno");
+  console.log("dos");
+  console.log("tres");
+}
+```
+
+La función ya está declarada, pero todavía no se ha ejecutado. Podemos pensar en ella como un jugador de fútbol que está en la banca: está listo, pero no ha entrado al campo. Para que la función se ejecute (o "entre al campo"), debemos invocarla.
+
+Para invocar una función, basta con llamar su nombre seguido de paréntesis los paréntesis indican en los lenguajes de programación que una función se va a ejecutar, de esta forma:
+
+```js
+estoEsUnaFuncion(); //Invocacion de la funcion
+```
+
+Si solo llamamos al nombre sin paréntesis, como en estoEsUnaFuncion;, no se ejecutará. Los paréntesis indican que una función debe ejecutarse. En este caso, la salida en la consola será:
+
+```
+uno
+dos
+tres
+```
+
+Una función es un bloque de código autocontenido que se define una vez y se puede ejecutar en cualquier momento. Esto significa que, una vez declarada la función, puedes invocarla tantas veces como desees para que realice las mismas acciones.
+
+Por ejemplo, si copio estoEsUnaFuncion() y la ejecuto varias veces, la función se ejecutará tantas veces como la invoque, repitiendo el código en su interior.
+
+Aquí tienes un ejemplo de cómo se vería:
+
+```js
+function estoEsUnaFuncion() {
+  console.log("uno");
+  console.log("dos");
+  console.log("tres");
+}
+
+//Invocamos la funcion cuatro veces
+estoEsUnaFuncion();
+estoEsUnaFuncion();
+estoEsUnaFuncion();
+estoEsUnaFuncion();
+```
+
+En este caso, como invocamos estoEsUnaFuncion() cuatro veces, los mensajes "uno", "dos" y "tres" se imprimen en la consola cuatro veces. Esto muestra cómo podemos reutilizar el mismo bloque de código en cualquier momento con solo invocar la función.
+
+Opcionalmente, una función puede aceptar parámetros y devolver valores. Por ejemplo, vamos a declarar una función llamada unaFuncionQueDevuelveValor. Aunque el nombre es algo largo, es explícito para que quede claro su propósito.
+
+Cuando una función devuelve un valor, usamos la palabra reservada return. Por ejemplo:
+
+```js
+function unaFuncionQueDevuelveValor() {
+  return "La funcion ha retornado una cadena de texto";
+}
+```
+
+En este caso, la función unaFuncionQueDevuelveValor devuelve la cadena "La función ha retornado una cadena de texto" cuando se ejecuta. Una función puede devolver cualquier tipo de datos, ya sean primitivos o compuestos.
+
+Para comprobar que realmente devuelve este valor, podemos asignar el resultado de la función a una variable y luego imprimirlo en la consola:
+
+```js
+let valorDeLaFuncion = unaFuncionQueDevuelveValor();
+console.log(valorDeLaFuncion);
+```
+
+La salida en la consola será:
+
+```
+La funcion ha retornado una cadena de texto
+```
+
+Esto muestra que el valor retornado por la función se asigna correctamente a la variable valorDeFuncion.
+
+Ejemplo de uso de return en una función con varios console.log
+
+Supongamos que nuestra función tiene varios console.log y queremos ver cómo return afecta su ejecución.
+
+```js
+function otraFuncion() {
+  console.log("uno");
+  return 19; //Devuelve 19 y termina la funcion
+  console.log("dos");
+  console.log("tres");
+}
+```
+
+Si ejecutamos otraFuncion() y observamos la consola:
+
+```js
+let resultado = otraFuncion();
+console.log("valore retornado:", resultado);
+```
+
+La salida en la consola será:
+
+```
+uno
+valor retornado: 19
+```
+
+Explicación: Al encontrar el primer return dentro de la función (en este caso, return 19;), el intérprete deja de ejecutar el resto del código que está debajo. Es decir, las líneas console.log("Dos") y console.log("Tres") no se ejecutan porque return termina la función y devuelve el valor inmediatamente.
+
+Resumen:
+
+Cuando la función encuentra un return, ignora cualquier línea de código que esté después de él y termina su ejecución, devolviendo el valor especificado. Esto hace que return sea una herramienta útil para controlar el flujo de una función y determinar el momento en que debe finalizar su ejecución.
+
+Ahora, vamos a ver cómo una función también puede aceptar parámetros. Pero, ¿qué significa que una función acepte parámetros? Básicamente, es la manera en que una función puede recibir valores externos para trabajar con ellos internamente.
+
+Por ejemplo, vamos a crear una función llamada saludar:
+
+```js
+function saludar() {}
+```
+
+En este caso, la función saludar aún no recibe ningún parámetro. Ahora vamos a modificarla para que reciba dos valores, que serán el nombre y la edad:
+
+```js
+function saludar(nombre, edad) {}
+```
+
+Aquí, nombre y edad son los parámetros de la función. Estos funcionan como variables dentro de la función, y los valores que se les asignen serán utilizados para ejecutar alguna acción específica. En este caso, vamos a usarlos para formar un mensaje de saludo.
+
+Imaginemos que esta función, como su nombre indica, es para saludar. Vamos a usar template strings (cadenas con plantillas) para construir un mensaje. Los template strings permiten incrustar variables directamente en el texto utilizando el símbolo `${}`. Así, en nuestra función saludar, agregaremos un console.log que muestre el siguiente mensaje:
+
+```js
+function saludar(nombre, edad) {
+  console.log(`Hola, mi nombre es ${nombre} y tengo ${edad} años`);
+}
+```
+
+Con esta estructura, la función saludar puede recibir un nombre y una edad para usarlos en el mensaje de saludo.
+
+Ejemplo de uso de la función con parámetros
+
+Vamos a llamar a la función saludar pasándole dos argumentos: "Kenai" y 7. Imaginemos que queremos saludar a Kenai, que tiene 7 años:
+
+```js
+saludar("kenai", 7);
+```
+
+La salida en la consola será:
+
+```
+Hola mi nombre es kenai y tengo 7 años
+```
+
+Explicación: La función saludar ha recibido los valores "Kenai" como nombre y 7 como edad, y los ha insertado en el mensaje de saludo.
+
+De esta forma, al aceptar parámetros, las funciones se vuelven más flexibles y reutilizables, ya que pueden adaptarse a diferentes valores y situaciones cada vez que se invocan.
+
+Ahora, ¿qué pasa si ejecuto la función saludar() sin pasarle parámetros?
+
+```js
+saludar();
+```
+
+Nos dará como resultado:
+
+```
+Hola mi nombre es undefined y tengo undefined años.
+```
+
+Esto sucede porque, al no pasarle valores a nombre y edad, JavaScript asigna automáticamente el valor undefined a cada parámetro. En otros lenguajes, ya existía la posibilidad de asignar valores por defecto a los parámetros de una función, pero en JavaScript esta funcionalidad fue agregada a partir de ES6 (2015).
+
+Para asignar un valor por defecto a los parámetros de una función en JavaScript, simplemente igualamos el parámetro a un valor deseado dentro de su declaración. Por ejemplo:
+
+```js
+function saludar(nombre = "Desconocido", edad = 0) {
+  console.log(`Hola, mi nombre es ${nombre} y tengo ${edad} años`);
+}
+```
+
+En esta versión, si llamamos a saludar sin pasarle argumentos, los parámetros nombre y edad tendrán automáticamente los valores "Desconocido" y 0, respectivamente.
+
+Invocación sin pasar argumentos:
+
+```js
+saludar();
+```
+
+La salida será:
+
+```
+Hola, mi nombre es Desconocido y tengo 0 años.
+```
+
+la función utiliza los valores por defecto para nombre y edad, ya que no se le pasaron argumentos.
+
+Esta característica es útil para manejar casos en los que algunos argumentos pueden ser opcionales.
+
+Vamos a crear una función declarada:
+
+```js
+function funcionDeclara() {
+  console.log(
+    "Esto es una funcion declarada que puede invocarse en cualquier momento"
+  );
+}
+```
+
+Este tema se conoce como funciones declaradas versus funciones expresadas. Recuerden que JavaScript es un lenguaje interpretado, lo cual significa que no necesita una fase de compilación separada; en cambio, interpreta el código durante la ejecución.
+
+Vean que aquí tenemos una función declarada llamada funcionDeclarada. Si ejecuto esta función después de su declaración, se ejecutará de manera lógica, ya que hemos declarado e invocado la función en el orden esperado. Por ejemplo:
+
+```js
+functionDeclarada(); // llamada despues de la declaracion
+// salida: Esto es una funcion declarada que puede invocarse en cualquier momento
+```
+
+Invocación antes de la declaración
+
+Sin embargo, ¿qué pasa si invocamos la función antes de declararla? Veamos el siguiente ejemplo:
+
+```js
+functionDeclarada();
+function funcionDeclara() {
+  console.log(
+    "Esto es una funcion declarada que puede invocarse en cualquier momento"
+  );
+}
+```
+
+salida:
+
+```
+Esto es una funcion declarada que puede invocarse en cualquier momento
+```
+
+Explicación del comportamiento
+
+¿Por qué esto es posible? Esto ocurre debido a un mecanismo en JavaScript llamado hoisting o elevación. Este mecanismo permite que las funciones declaradas se "eleven" o se muevan al comienzo de su ámbito, lo que permite que sean invocadas antes de su declaración física en el código.
+
+JavaScript procesa primero las declaraciones de funciones y variables antes de ejecutar el código. Así, en este caso, JavaScript "eleva" la declaración de funcionDeclarada al comienzo del archivo o bloque de código, lo que permite que la función sea accesible en cualquier lugar del código, incluso antes de la línea donde se define.
+
+Por lo tanto, si alguna vez escuchas a un colega decir "No importa dónde declares una función en el archivo, siempre puedes invocarla en cualquier parte", esto se debe a que JavaScript realiza un hoisting de las funciones declaradas.
+
+Hay otra manera de declarar funciones en JavaScript, y es utilizando funciones expresadas, es decir, asignando una función a una variable de manera dinámica. Por ejemplo, en este caso, utilizaremos const para declarar la variable, ya que el valor asignado (el cuerpo de la función) no va a cambiar. Es una práctica común en JavaScript declarar funciones expresadas con const en lugar de let.
+
+Veamos un ejemplo:
+
+```js
+const funcionExpreseda = function () {
+  console.log("Esto es una funcion expresada");
+};
+```
+
+Aquí, funcionExpresada es una función asignada a una variable constante. Como es una función expresada, no es necesario darle un nombre en la declaración (function). En este caso, el nombre de
+
+la función ya está dado por la variable funcionExpresada. Este tipo de función sin nombre explícito en la declaración se conoce como función anónima.
+
+Arrow Functions
+
+Para programadores más experimentados, cabe mencionar que también podemos definir esta función utilizando arrow functions. Por ejemplo:
+
+```js
+const funcionExpreseda = () => {
+  console.log("Esto es una funcion expresada con arrow function");
+};
+```
+
+Aquí, estamos usando la sintaxis de arrow function, introducida en ES6, que es una forma más concisa de escribir funciones en JavaScript. Sin embargo, en este curso estamos comenzando desde lo básico, y el objetivo es avanzar paso a paso hasta llegar a un nivel avanzado, de modo que si estás aprendiendo por primera vez, puedas adquirir las habilidades necesarias para trabajar como programador web.
+
+Simplemente, estamos creando una función sin nombre, por eso se llama función anónima; es una función que no tiene nombre y que estamos asignando como valor a una variable. Observa el siguiente ejemplo:
+
+```js
+const funcionExpreseda = function () {
+  console.log("Esto es una funcion expresada");
+};
+```
+
+Para invocar esta función, usamos:
+
+```js
+funcionExpreseda(); // salida: Esto es una funcion expresada
+```
+
+Si intentamos invocar funcionExpresada antes de definirla, el resultado será un error:
+
+```js
+funcionExpresada(); //Error: Uncaught ReferenceError: funcionExpresada is not defined
+```
+
+Esto se debe a que, al utilizar funciones expresadas, no podemos acceder a la función antes de su inicialización. A diferencia de las funciones declaradas, JavaScript no eleva (o realiza el "hoisting" de) las funciones expresadas.
+
+Diferencias entre Funciones Declaradas y Expresadas
+
+La diferencia entre declarar una función (como función declarada) y crear una función como función expresada (asignada a una variable) radica en cómo el hoisting funciona en JavaScript. Al declarar una función con function nombreFuncion() {}, JavaScript permite que sea invocada en cualquier parte del código, incluso antes de que esté declarada en el archivo. En cambio, al crear una función expresada, esta no puede invocarse antes de su inicialización, lo que evita errores de referencia si el código no está ordenado.
+
+Buenas Prácticas
+
+Ambas opciones son válidas en JavaScript. Sin embargo, es recomendable ordenar el código, de modo que las funciones sean declaradas antes de su invocación, especialmente en aplicaciones grandes o complejas. Esto hace que el código sea más legible y predecible. Además, con la creciente popularidad de librerías y frameworks reactivos como Angular, Vue, y ReactJS, se ha vuelto más común utilizar funciones expresadas, pues esto ayuda a evitar errores de referencia y hace que el código esté más estructurado.
+
+Si declaramos las funciones como expresadas, estamos obligándonos a inicializarlas antes de su uso, lo cual es una buena práctica en JavaScript, dado que es un lenguaje interpretado. Las funciones expresadas no se pueden utilizar hasta que hayan sido inicializadas, lo que puede evitar errores en la ejecución.
+
+Conceptos Vistos
+
+En este repaso hemos cubierto varios conceptos clave sobre funciones en JavaScript:
+
+Cómo crear una función.
+
+Qué es una función y cómo funciona.
+
+Uso de parámetros y valores por defecto en funciones.
+
+Cómo retornar valores de una función y el uso de la palabra clave return.
+
+Diferencias entre funciones declaradas y expresadas.
+
+Aún hay muchos temas avanzados sobre funciones en JavaScript, como funciones anidadas, closures, patrones de escritura, y arrow functions, una característica útil introducida en el estándar ECMAScript 2015. Sin embargo, los fundamentos que hemos cubierto te permitirán avanzar y entender mejor los tipos de datos compuestos, como los arreglos y objetos, los cuales también pueden contener funciones como valores. Por eso, era importante establecer primero una base sólida sobre las funciones.
+
+En los próximos temas, abordaremos conceptos como arreglos y objetos para ver cómo estos tipos de datos pueden trabajar en conjunto con funciones.
+
+[indice](#fundamentos-jonmircha)
+
+## 11. Arreglos
+
+En la clase anterior, vimos los conceptos básicos de las funciones. Hoy, veremos el segundo tipo de datos complejos, que son los arreglos.
+
+Si abro el navegador y escribo un par de corchetes [], el navegador reconocerá esto como un arreglo vacío. Existen diferentes maneras de declarar arreglos. Por ejemplo, es importante recordar lo que vimos en la sesión 4 sobre las constantes: podemos declarar arreglos usando const. Aunque internamente cambien los elementos de un arreglo, mientras siga siendo un arreglo, puede ser tratado como una constante.
+
+Algunos programadores prefieren declarar arreglos con la palabra clave let, mientras que otros optan por const. Esto depende de la preferencia del programador. Aquí usaré const para definir mis arreglos.
+
+Ejemplos de Declaración de Arreglos
+
+Para declarar un arreglo vacío, podemos escribir:
+
+```js
+const a = [];
+```
+
+Pero, si queremos crear un arreglo b con algunos elementos desde el inicio, podemos hacer lo siguiente:
+
+```js
+const b = [1, true, "hola", ["A", "B", "C"]];
+```
+
+Este arreglo b contiene cuatro elementos:
+
+1. El número 1
+
+2. Un valor booleano true
+
+3. La cadena "hola"
+
+4. Un arreglo de letras ["A", "B", "C"]
+
+Si ejecutamos el siguiente código en la consola:
+
+```js
+console.log(b);
+```
+
+La consola nos mostrará el contenido de b, indicando que es un arreglo con cuatro elementos. Además, dentro del cuarto elemento (el subarreglo), podremos ver tres elementos: "A", "B", y "C".
+
+Longitud de un Arreglo
+
+Los arreglos en JavaScript siempre empiezan con el índice 0. Esto significa que el primer elemento está en la posición 0, el segundo en 1, y así sucesivamente. Para obtener la longitud de un arreglo (el número total de elementos que contiene), usamos la propiedad length:
+
+```js
+console.log(b.length);
+```
+
+Así como en las cadenas de texto length nos devuelve el número de caracteres, en arreglos nos devuelve el número de elementos.
+
+Accediendo a Elementos en un Arreglo
+
+Imaginemos que queremos acceder solo al elemento "hola" en el arreglo b. Como es el tercer elemento, se encuentra en la posición 2 (recordando que el índice empieza en 0). Usamos la notación de corchetes [] para acceder a este elemento:
+
+```js
+console.log(b[2]); // salida: hola
+```
+
+Si en cambio accedemos al primer elemento:
+
+```js
+console.log(b[0]);
+```
+
+Esto nos imprimirá el número 1, ya que es el primer elemento del arreglo b.
+
+Ejemplo Adicional: Acceder a un Subarreglo
+
+Supongamos que queremos acceder al subarreglo ["A", "B", "C"] dentro de b. Como este es el cuarto elemento, está en la posición 3:
+
+```js
+console.log(b[3]); // salida:["A", "B", "C"]
+```
+
+Y, si deseamos obtener solo la letra "B" del subarreglo, especificamos dos índices:
+
+```js
+console.log(b[3][1]); // salida: B
+```
+
+Ejemplo de Ajedrez: Coordenadas en el Tablero
+
+Para comprender mejor la estructura de posiciones en arreglos, imagina un tablero de ajedrez. Supongamos que necesitamos referirnos a una pieza, como un caballo en la casilla h2. Para localizarlo, deberíamos ubicar la columna h y luego el número 2. De manera similar, en un arreglo podemos acceder a posiciones específicas mediante índices.
+
+Por ejemplo, si queremos ver todas las piezas, usamos el nombre del arreglo. Si queremos ver solo una pieza en particular, usamos la coordenada o posición del índice de esa pieza.
+
+Ahora, hay nuevas formas de crear arreglos, como usando Array.of(). Este método permite crear un arreglo con los elementos que le especifiquemos. Por ejemplo:
+
+```js
+const c = Array.of("x", "y", "z", 9, 8, 7);
+console.log(c);
+```
+
+Al ejecutar console.log(c), el resultado será:
+
+```
+["x", "y", "z", 9, 8, 7]
+```
+
+La consola nos dirá que c es un arreglo de seis posiciones, y mostrará los valores que contiene.
+
+Este es un nuevo método que se introdujo en el estándar ECMAScript en 2015 (conocido como ECMAScript 6 o ES6), y Array.of() nos permite crear arreglos llenando directamente los elementos en su declaración.
+
+Otra manera muy útil de crear arreglos es inicializarlos con valores predeterminados en todas sus posiciones. Imagina que tienes una aplicación de ecommerce con mil productos, y mientras se cargan sus valores reales, necesitas asignarles temporalmente un descuento de 0% en un arreglo. Para este tipo de situaciones, existe un método que permite inicializar un arreglo y asignarle el mismo valor a todas sus posiciones.
+
+Por ejemplo, voy a crear un arreglo llamado d usando el método Array().fill(). Este método pertenece al objeto Array en JavaScript y permite asignar un valor a todas las posiciones de un arreglo.
+
+Imaginemos que necesitamos un arreglo de 100 posiciones y queremos llenarlas todas con el valor false. Para hacer esto, podemos escribir:
+
+```js
+const d = Array(100).fill(false);
+console.log(d);
+```
+
+Si ejecutamos console.log(d), veremos que la consola muestra un arreglo de 100 posiciones, todas inicializadas con el valor false.
+
+Los arreglos, como vimos, tienen propiedades útiles, como la propiedad .length, que devuelve el número de elementos. Por ejemplo, imagina que tenemos un arreglo con los colores RGB (rojo, verde y azul):
+
+```js
+const colores = ["rojo", "verde", "azul"];
+```
+
+Si necesitamos agregar un nuevo elemento al final del arreglo, podemos usar el método .push(). Este método añade el nuevo elemento en la última posición. Por ejemplo, si queremos agregar el color "Negro":
+
+```js
+colores.push("negro");
+console.log(colores);
+```
+
+Al imprimir colores, veremos que ahora tiene cuatro elementos, siendo "Negro" el último agregado. El método .push() siempre inserta el elemento al final del arreglo.
+
+De igual manera, podemos utilizar el método .pop(). Este método elimina el último elemento del arreglo. Por ejemplo:
+
+```js
+colores.pop();
+console.log(colores);
+```
+
+Después de ejecutar .pop(), veremos que el último elemento del arreglo ha sido eliminado. Así, el método .push() agrega un elemento al final del arreglo, mientras que .pop() quita el último elemento.
+
+Los arreglos en JavaScript tienen una gran cantidad de métodos, especialmente útiles en el contexto del paradigma funcional y la programación orientada a componentes. Este estilo de programación ha introducido métodos como .map(), .reduce(), y .filter(), entre otros, que permiten escribir código de una manera más funcional.
+
+Si quisiera mostrar todos los métodos que existen para los arreglos, esta clase sería demasiado extensa. Como vimos en la clase sobre cadenas, puedes consultar la documentación en MDN (Mozilla Developer Network) para ver todas las propiedades y métodos disponibles, junto con ejemplos.
+
+A lo largo del curso, veremos estos métodos en profundidad. Más adelante, cuando abordemos los paradigmas de programación, retomaremos estos métodos orientados a la programación funcional.
+
+Sin embargo, hay un método con el que cerraré esta clase, que nos permite ejecutar una función en cada elemento de un arreglo. Este es también un método funcional de los arreglos.
+
+Por ejemplo, imaginen que quiero formar una lista en HTML usando una etiqueta `<ul>`, donde cada color esté dentro de un elemento <li>. Para esto, puedo usar el método forEach. Este método ejecuta una función en cada elemento del arreglo.
+
+Aquí tienes un ejemplo para que lo veas en acción:
+
+```js
+const colores = ["rojo", "verde", "azul"];
+
+//Usamos un forEach para recorer cada color y crear un elemento <li>
+colores.forEach(function (el) {
+  console.log(`<li>${el}</li>`);
+});
+```
+
+Explicación del código:
+
+- forEach recibe una función como callback (una función que se ejecuta en cada elemento del arreglo).
+
+- En este caso, declaramos una función anónima que toma el elemento actual (el) como parámetro.
+
+- Dentro de la función, utilizamos console.log para mostrar cada color dentro de un elemento `<li>`.
+
+Cuando lleguemos a temas más avanzados, veremos cómo utilizar arrow functions en lugar de funciones anónimas. Por ahora, usamos una función anónima para que el ejemplo sea fácil de entender.
+
+Este método forEach es muy útil para trabajar con cada elemento de un arreglo y ejecutar acciones específicas en ellos.
+
+Ahora, imaginen que cada elemento `<li>` necesita tener una referencia única en el atributo id. Podemos lograr esto pasando un segundo parámetro al método forEach, el cual indica el índice que ocupa cada elemento dentro del arreglo. A este parámetro podemos llamarlo index, y luego interpolarlo para incluirlo en el atributo id de cada `<li>`.
+
+Aquí tienes un ejemplo:
+
+```js
+const colores = ["rojo", "verde", "azul"];
+
+// Recorremos el arreglo y generamos una lista con un id unico
+colores.forEach(function (el, index) {
+  console.log(`<li id="${index}">${el}</li>`);
+});
+```
+
+Explicación del código:
+
+- forEach recibe una función que tiene dos parámetros: el primer parámetro (el) representa el valor del elemento actual en el arreglo, mientras que el segundo parámetro (index) representa el índice de ese elemento.
+
+- Dentro del console.log, usamos la interpolación de strings para crear un elemento `<li>` que tiene un id igual al índice del elemento. Esto generará como resultado elementos con id='0', id='1', id='2', etc.
+
+Con el método forEach, podemos recorrer cada elemento del arreglo, acceder a su valor con el primer parámetro (el) y su índice con el segundo parámetro (index o i), lo cual resulta útil en muchos casos.
 
 [indice](#fundamentos-jonmircha)
