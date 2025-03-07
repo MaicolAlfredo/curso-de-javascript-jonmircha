@@ -40,20 +40,4 @@ switch (fruta) {
     break;
 }
 
-// ciclos
 
-let contador = 0;
-
-while (contador < 10) {
-  console.log(contador); //Imprime los números de 0 al 9
-  contador++; //Incrementa la variable
-}
-
-do {
-  console.log("do while:" + contador);
-  contador++;
-} while (contador < 10);
-
-for (let i = 0; i < 10; i++) {
-  console.log(i);
-}

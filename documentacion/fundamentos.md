@@ -7,6 +7,11 @@
 1. [11. Arreglos](#11-arreglos)
 1. [12. Objetos](#12-objetos)
 1. [13. Tipos de operadores](#13-tipos-de-operadores-2944)
+1. [14. Condicionales](#14-condicionales-3355)
+1. [15. Ciclos (Loops)](#15-ciclos-loops)
+1. [16. Manejo de Errores](#16-manejo-de-errores-1926)
+1. [17. break & continue](#17-break--continue-842)
+1. [18. Destructuración](#18-destructuración-908)
 
 ## Introducción
 
@@ -365,6 +370,7 @@ Básicamente, con esto cerramos la parte de los tipos primitivos. En el siguient
 
 [indice](#fundamentos-jonmircha)
 
+---
 ## 10. Funciones
 
 En la clase anterior terminamos de ver los tipos de datos primitivos: string, number, boolean, y los tres últimos, particulares de JavaScript: undefined, Null y NaN (Not a Number). Ahora vamos a empezar a trabajar con los tipos de datos compuestos o complejos. Comenzaremos con las funciones, porque los objetos y los arreglos suelen necesitar el uso de funciones. Por eso considero que lo mejor es empezar con este tipo de datos.
@@ -1465,5 +1471,709 @@ Resumen
 Estos operadores son esenciales para construir lógica condicional en cualquier programa.
 
 En este video hemos visto operadores aritméticos, operadores relacionales, operadores de incremento y decremento, entre ellos los operadores unarios, y cuándo es mejor utilizarlos y cuándo no. Finalmente, hemos visto los operadores lógicos.
+
+[indice](#fundamentos-jonmircha)
+
+## 14. Condicionales 33:55
+
+En la clase anterior vimos diferentes tipos de operadores: incremento y decremento, aritméticos, lógicos y relacionales. Les mencioné que en esta clase comenzaríamos a estudiar las estructuras de control, iniciando con las condicionales.
+
+¿Qué es una estructura de control?
+
+Una estructura de control es un mecanismo que permite controlar el flujo de ejecución de tu programa. Hasta ahora, todas las líneas de código que hemos escrito son estructuras secuenciales, es decir, se ejecutan una después de otra de forma lineal. Sin embargo, llegará un momento en el que necesitemos tomar decisiones en función de una condición o repetir ciertas acciones.
+
+En las estructuras de control tenemos tres tipos principales:
+
+1. Secuenciales: Se ejecutan una línea tras otra.
+
+2. Condicionales: Dependiendo de la evaluación de una condición, se ejecutan unas acciones u otras.
+
+3. Repetitivas (loops): Permiten repetir un bloque de código varias veces (las veremos en la próxima clase).
+
+Estructuras condicionales: if-else
+
+Un if-else nos permite tomar decisiones en función de una condición. Si esta condición se cumple, se ejecutan ciertas acciones; de lo contrario, se ejecutan otras.
+
+Ejemplo: Mayoría de edad
+
+```js
+let edad = 17;
+
+if (edad >= 18) {
+  console.log("Eres mayor de edad");
+} else {
+  console.log("Eres menor de edad");
+}
+```
+
+En este ejemplo:
+
+- Si edad es mayor o igual a 18, se imprime "Eres mayor de edad".
+- Si no, se imprime "Eres menor de edad".
+
+Condicionales anidadas: if-else-if
+
+Las condicionales se pueden anidar para evaluar múltiples condiciones.
+
+Ejemplo: Saludos según la hora
+
+```js
+let hora = 5;
+
+if (hora >= 0 && hora <= 5) {
+  console.log("Dejame dormir");
+} else if (hora >= 6 && hora <= 11) {
+  console.log("Buenos días");
+} else if (hora >= 12 && hora <= 18) {
+  console.log("Buenas tardes");
+} else {
+  console.log("Buenas noches");
+}
+```
+
+En este caso:
+
+1. Si la hora está entre 0 y 5, se imprime "Déjame dormir".
+2. Si está entre 6 y 11, se imprime "Buenos días".
+3. Si está entre 12 y 18, se imprime "Buenas tardes".
+4. En cualquier otro caso, se imprime "Buenas noches".
+
+Operador ternario
+
+El **operador ternario** es una forma simplificada de escribir un if-else en una sola línea.
+
+Sintaxis:
+
+```
+condicion ? expresión_si_verdadero : expresión_si_falso
+```
+
+Ejemplo: Mayoría de edad con operador ternario.
+
+```js
+let edad = 17;
+console.log(edad >= 18 ? "Eres mayor de edad" : "Eres menor de edad");
+```
+
+Estructura switch-case
+
+La estructura switch-case es útil cuando necesitamos evaluar diferentes valores para una misma variable.
+
+Sintaxis:
+
+```js
+switch (variable) {
+  case valor1:
+    //código a ejecutar si variable === valor 1
+    break;
+  case valor2:
+    //código a ejecutar si variable === valor 2
+    break;
+  default:
+    //Código a ejecutar si ningún caso coincide
+    break;
+}
+```
+
+Ejemplo : Clasificacion de frutas
+
+```js
+let fruta = "Manzana";
+
+switch (fruta) {
+  case "Manzana":
+    console.log("Es una manzana");
+    break;
+  case "Plátano":
+    console.log("Es un plátano");
+  case "naranja":
+    console.log("Es una naranja");
+    break;
+  default:
+    console.log("Fruta no reconocida");
+    break;
+}
+```
+
+En este caso:
+
+- Si fruta es "manzana", imprime "Es una manzana".
+- Si fruta es "plátano", imprime "Es un plátano".
+- Si no coincide con ninguno de los casos, imprime "Fruta no reconocida".
+
+Importante:
+
+- break: Detiene la ejecución dentro del switch y evita que se ejecuten los demás casos.
+- default: Es opcional y se ejecuta si ninguno de los casos coincide.
+
+Con estas estructuras de control básicas (if-else, operador ternario y switch-case), podemos empezar a tomar decisiones en nuestros programas. En la próxima clase, veremos las estructuras repetitivas para realizar acciones de manera iterativa.
+
+[indice](#fundamentos-jonmircha)
+
+## **15. Ciclos (Loops)**
+
+En el video anterior vimos las estructuras de control que nos ayudan a trabajar con condiciones: if-else, el operador ternario (una simplificación de if-else), estructuras anidadas y el switch. Ahora, abordaremos las estructuras repetitivas (ciclos o bucles), que nos permiten controlar el flujo de nuestra programación repitiendo ciertas acciones mientras se cumple una condición.
+
+Ahora vamos a ver las otras estructuras de control que nos van a permitir controlar el flujo de nuestra programación, y estos son los ciclos o bucles, también conocidos como estructuras repetitivas. Hagan de cuenta que esto es como cuando necesitamos que, dependiendo de que se evalúe cierta condición, tengamos la necesidad de que ciertas líneas de código se ejecuten repetidamente hasta que se cumpla una condición. Sin embargo, aquí también entra en juego el incremento o decremento de alguna variable que modifica ese valor y que hace que dichas líneas de código se repitan hasta que la variable en cuestión alcance el valor deseado, momento en el que el ciclo se detiene.
+
+Vamos a ver primero el while y el do-while. Aunque actualmente estas estructuras están cayendo mucho en desuso, ya que son más propias de una programación imperativa o estructurada. Por otro lado, JavaScript, al ser un lenguaje multi-paradigma, se está orientando cada vez más hacia una programación declarativa. Esto es especialmente evidente cuando trabajamos con paradigmas como la programación orientada a objetos o la programación funcional, donde generalmente buscamos escribir un código más declarativo que imperativo.
+
+Es importante que conozcan estas estructuras, pero en la práctica, cada vez se utilizan menos.
+
+Ciclo while
+
+La primera estructura que vamos a ver es el while:
+
+Ejemplo básico:
+
+```js
+let contador = 0;
+
+while (contador < 10) {
+  console.log(contador); //Imprime los números de 0 al 9
+}
+```
+
+Es muy importante entender que este tipo de estructuras repetitivas, también llamadas bucles o ciclos, necesitan que sus iteraciones (cada vuelta que se hace dentro del ciclo repetitivo) incluyan un incremento o decremento en la variable de control. De lo contrario, el ciclo podría ser infinito.
+
+Por ejemplo, para que el ciclo funcione correctamente, debemos incrementar el valor de la variable contador en cada iteración:
+
+```js
+let contador = 0;
+
+while (contador < 10) {
+  console.log(contador); //Imprime los números de 0 al 9
+  contador++;
+}
+```
+
+En este caso, el ciclo imprime los números del 0 al 9. En cada iteración, la variable contador aumenta en 1. Cuando contador llega a 10, la condición (contador < 10) deja de cumplirse, y el ciclo se detiene.
+
+Existe una variante llamada do-while. Hoy en día, es raro encontrarnos con el uso de bucles controlados mediante while, y hacerlo con do-while es todavía menos común.
+
+Ejemplo de código con do-while:
+
+```js
+let contador = 10;
+
+do {
+  console.log("do while:" + contador);
+  contador++;
+} while (contador < 10);
+```
+
+¿Cuál es la diferencia entre usar while y do-while?
+
+1. En un while, antes de ejecutar las líneas de código dentro del bucle, la condición debe cumplirse. Si no se cumple, el código no se ejecutará ni una sola vez.
+
+2. En un do-while, el bloque de código dentro del do siempre se ejecuta al menos una vez, incluso si la condición no se cumple. Esto se debe a que la evaluación de la condición ocurre al final del ciclo.
+
+**Explicación del ejemplo:**
+
+En el código anterior:
+
+- Inicialmente, la variable contador tiene un valor de 10.
+- Se ejecuta el bloque dentro del do, que imprime do while: 10.
+- Luego, la variable contador se incrementa en 1.
+- Finalmente, se evalúa la condición (contador < 10). Como contador ahora vale 11, la condición no se cumple, y el bucle termina.
+
+Por lo tanto, el bucle ejecuta su contenido una sola vez, independientemente de que la condición no se cumpla desde el principio.
+
+### for
+
+Ahora, el ciclo o bucle más utilizado es una estructura llamada for. Este ciclo consta de tres partes principales. Cuando trabajamos con el ciclo while, necesitamos:
+
+1. Declarar e inicializar una variable, por ejemplo: let contador = 0.
+
+2. Definir una condición que controle el ciclo, como: (contador < 10).
+
+3. Realizar un incremento o decremento, por ejemplo: contador++;.
+
+El ciclo for agrupa estas tres partes dentro de una sola línea de código, permitiendo un control más eficiente del flujo de programación.
+
+**Estructura del ciclo for:**
+
+Dentro de los paréntesis del for, se deben especificar las siguientes partes, separadas por punto y coma:
+
+1. Inicialización: Declaración e inicialización de la variable que controlará el ciclo.let a = 5; // Se asigna el valor 5 a la variable "a'
+   console.log(a): // Salida: 5
+2. Condición: Evaluación que determina si el ciclo continúa.
+3. Incremento/Decremento: Operación que modifica la variable de control en cada iteración.
+
+El bloque dentro de las llaves {} contiene las sentencias que se ejecutarán en cada iteración del ciclo.
+
+Ejemplo básico de un ciclo for:
+
+```js
+for (let i = 0; i < 10; i++) {
+  console.log("for: " + i);
+}
+```
+
+Explicación:
+
+1. Inicialización: let i = 0 define e inicializa la variable i con el valor 0.
+2. Condición: i < 10 verifica si el valor actual de i es menor que 10. Si es verdadero, el ciclo continúa; de lo contrario, finaliza.
+3. Incremento: i++ aumenta el valor de i en 1 después de cada iteración.
+
+Este código imprimirá en la consola los números del 0 al 9. Cuando i alcance el valor 10, la condición será falsa, y el ciclo se detendrá.
+
+Imagínense que tengo un arreglo de números:
+
+```js
+let numeros = [10, 20, 30, 40, 50];
+```
+
+Recuerden que en la clase de arreglos vimos que los arreglos tienen un método llamado forEach. Este método recibe una función y permite recorrer y realizar operaciones con cada uno de los elementos del arreglo.
+
+El método forEach es una forma más declarativa de ejecutar un ciclo, ya que abstrae detalles como la inicialización, la condición y el incremento. Sin embargo, también podemos recorrer los elementos de un arreglo utilizando un ciclo for, lo cual es un enfoque más imperativo.
+
+Al usar un ciclo for, necesitamos:
+
+Declarar una variable que controle la posición en el arreglo (por ejemplo, i).
+
+Definir una condición basada en la longitud del arreglo (numeros.length), ya que la cantidad de iteraciones dependerá del número de elementos del arreglo.
+
+Incrementar la variable de control para avanzar a la siguiente posición en el arreglo.
+
+Recuerden que los índices de los arreglos en JavaScript comienzan en 0. Por lo tanto, si un arreglo tiene 5 elementos, las posiciones irán de 0 a 4. Esto se refleja al utilizar la propiedad length del arreglo, que siempre devuelve el número total de elementos, no su último índice.
+
+Ejemplo de ciclo for para recorrer un arreglo:
+
+```js
+let numeros = [10, 20, 30, 40, 50];
+
+for (let i = 0; i < numeros.length; i++) {
+  console.log(numeros[i]);
+}
+```
+
+Explicación:
+
+1. Inicialización: let i = 0 establece que comenzaremos en la posición 0 del arreglo.
+2. Condición: i < numeros.length asegura que el ciclo se ejecute mientras i sea menor que el número total de elementos en el arreglo.
+3. Incremento: i++ aumenta el valor de i en 1 en cada iteración, moviéndose al siguiente elemento del arreglo.
+
+El resultado en la consola será:
+
+```
+10
+20
+30
+40
+50
+```
+
+Desde ECMAScript 2015 (también conocido como ECMAScript 6), surgieron nuevas variantes del ciclo for, llamadas for-of y for-in. Estas variantes están diseñadas para manejar escenarios específicos de iteración.
+
+Ciclo for-in:
+
+El ciclo for-in permite recorrer o iterar las propiedades de un objeto. Es especialmente útil cuando queremos acceder a las claves (nombres de las propiedades) de un objeto.
+
+Ejemplo con un objeto:
+
+```js
+const jon = {
+  nombre: "Jon",
+  apellido: "Mircha",
+  edad: 35,
+};
+
+for (const propiedad in jon) {
+  console.log(propiedad);
+}
+```
+
+Resultado en la consola:
+
+```
+nombre
+apellido
+edad
+```
+
+Explicación:
+
+1. Objeto: El objeto jon tiene tres propiedades: nombre, apellido y edad.
+2. for-in: Este ciclo recorre las claves del objeto (nombre, apellido, edad) y las imprime en cada iteración.
+
+Si deseas acceder a los valores de las propiedades junto con sus nombres, puedes usar la notación de corchetes ([]) para obtener el valor asociado a cada clave:
+
+Ejemplo para acceder tanto a las claves como a los valores:
+
+```js
+for (const propiedad in jon) {
+  console.log(`${propiedad}:${jon[propiedad]}`);
+}
+```
+
+Resultado en la consola:
+
+```
+nombre: Jon
+apellido: Mircha
+edad:35
+```
+
+Nota: Aunque el ciclo for-in también puede recorrer índices en un arreglo, no es la opción más recomendada para este propósito. Para arreglos, es mejor usar un ciclo for-of o métodos como forEach.
+
+Ciclo for-of
+
+El ciclo for-of es una variante del for que utiliza la palabra reservada of en lugar de in. La principal diferencia entre for-in y for-of radica en que:
+
+- for-in recorre las propiedades de un objeto.
+- for-of recorre los elementos de cualquier objeto que sea iterable en JavaScript.
+
+Ejemplo con un arreglo:
+
+```js
+let numeros = [10, 20, 30, 40, 50];
+
+for (const elemento of numeros) {
+  console.log(elemento);
+}
+```
+
+Resultado en la consola:
+
+```
+10
+20
+30
+40
+50
+```
+
+Explicación:
+
+Arreglo: numeros es un arreglo que contiene varios elementos.
+
+for-of: Este ciclo recorre directamente cada elemento del arreglo y los imprime en cada iteración.
+
+El ciclo for-of no se limita a los arreglos; también funciona con otros elementos iterables en JavaScript, como cadenas de texto, mapas (Map), conjuntos (Set), e incluso generadores.
+
+Ejemplo con una cadena de texto:
+
+```js
+let cadena = "hola mundo";
+
+for (const caracter of cadena) {
+  console.log(caracter);
+}
+```
+
+Resulado en la consola:
+
+```
+h
+o
+l
+a
+
+m
+u
+n
+d
+o
+```
+
+Explicación:
+
+1. Cadena de texto: Las cadenas son elementos iterables, lo que significa que podemos recorrer cada uno de sus caracteres.
+2. for-of: Este ciclo extrae cada carácter de la cadena y lo imprime en la consola en cada iteración.
+
+Diferencias clave:
+
+1. for-in:
+
+- Diseñado para recorrer las propiedades de un objeto.
+- Ejemplo: Recorrer las claves de un objeto.
+
+2. for-of:
+
+- Diseñado para recorrer los elementos de cualquier objeto iterable.
+- Ejemplo: Recorrer elementos de un arreglo o caracteres de una cadena.
+
+Ambas variantes son útiles, pero su aplicación depende del tipo de dato que se esté trabajando.
+
+Nota: Evita usar for-in para recorrer arreglos, ya que podría devolver índices en lugar de elementos. En cambio, for-of es más apropiado para este caso.
+
+[indice](#fundamentos-jonmircha)
+
+## **16. Manejo de Errores 19:26**
+
+En la sesión anterior estuvimos viendo y terminamos de revisar todo lo necesario para empezar a concretar ejercicios de programación con JavaScript. En los últimos dos vídeos vimos los condicionales y los loops. Hoy aprenderás cómo manejar errores en JavaScript.
+
+JavaScript tiene un mecanismo para el manejo y la detección de errores que, si lo comparamos, puede parecerse a un if-else. Este mecanismo se llama try-catch-finally. Es una estructura que permite evaluar fragmentos de código, y cuando se genera un error (o el código lanza un error explícitamente), este es capturado en el bloque catch. Es una manera organizada y eficiente de gestionar errores.
+
+Estructura básica: try-catch
+
+La estructura básica tiene tres partes principales:
+
+1. try: Aquí colocamos el código que queremos evaluar.
+2. catch: Este bloque captura cualquier error que ocurra en el bloque try.
+3. finally (opcional): Este bloque se ejecuta siempre, haya ocurrido un error o no.
+
+Ejemplo:
+
+```js
+try{
+  console.log("En el bloque 'try' se agrega el código a evaluar.");
+}catch (error){
+  console.log("El bloque 'catch' captura cualquier error ocurrido en el 'try'");
+}finally{
+console.log("El bloque 'finally' es ejecuta siempre, al final del bloque");
+}
+```
+
+Detalle del flujo de ejecución
+
+**Bloque try**
+
+Es donde colocamos el código que queremos evaluar. Si no hay errores, el bloque catch se omite.
+
+```js
+try{
+  console.log("Este es código dentro del bloque 'try'")
+}
+```
+
+Bloque catch
+
+Si ocurre un error dentro del bloque try, este será capturado por el bloque catch.
+
+```js
+try{
+  //Intenta ejecutar este código.
+  console.log(variableNoDefinida); Esto generará un errors porque la variable no esta definida
+}catch (error){
+  console.log("Se produjo un error: ", error.message); //captura el error
+}
+```
+
+Bloque finally
+
+Este bloque se ejecuta siempre, sin importar si hubo o no un error en el bloque try.
+
+```js
+try {
+  console.log("Ejecutando código en 'try'.");
+} catch (error) {
+  console.log("Se produjo un error.");
+} finally {
+  console.log("El bloque 'finally' se ejecuta siempre.");
+}
+```
+
+Observación importante
+
+Si hay un error en el bloque try, pero este es manejado por el bloque catch, el flujo del programa continúa sin problemas. Si no hay errores, el bloque catch se ignora, y el programa pasa directamente al bloque finally.
+
+Personalización de mensajes de error en JavaScript
+
+Podemos personalizar nuestros propios mensajes de error evaluando condiciones específicas con un bloque if. Por ejemplo, para comprobar si un valor es un número, usamos la función isNaN(). Esta función evalúa si el valor no es un número:
+
+- Si no es un número, devuelve true.
+- Si es un número, devuelve false.
+
+Dentro del bloque if, utilizamos la palabra reservada throw para lanzar un error personalizado. Este error puede ser manejado más adelante con un bloque try-catch.
+
+Recuerda que la documentación de MDN Web Docs describe varios tipos de errores predefinidos en JavaScript (como SyntaxError, TypeError, ReferenceError, entre otros). Sin embargo, el tipo de error más común y genérico es Error, que crea una instancia básica para personalizar mensajes.
+
+Ejemplo:
+
+```js
+try {
+  let numero = "text";
+
+  if (isNaN(numero)) {
+    //Lanza un error si el valor no es un número.
+    throw new error("El carácter introducido no es un número.");
+  }
+  console.log(`El cuadrado del número es: ${numero * numero} `);
+} catch (error) {
+  //captura y maneja el error
+  console.log(`Se produjo el siguiente error: ${error.message}`);
+}
+```
+
+Ventajas de manejar errores con try-catch
+
+Esta estructura no solo es útil para manejar errores de sintaxis, sino que también permite detectar errores lógicos. Por ejemplo, si esperamos recibir un número y, en su lugar, obtenemos una cadena de texto, podemos capturar ese error para evitar fallos en el programa.
+
+Ejemplo práctico de validación:
+
+Imagina que estás desarrollando una aplicación web donde los datos ingresados por el usuario podrían no coincidir con el formato esperado (por ejemplo, números enviados como texto). En este caso, encapsulamos el código dentro de un bloque try-catch para manejar estos errores de manera eficiente.
+
+```js
+function procesarDatos(entrada) {
+  try {
+    let numero = Number(entrada);
+
+    //Validar si la conversión fue exitosa.
+    if (isNaN(numero)) {
+      throw new error("El carácter introducido no es un número válido.");
+    }
+    console.log(`El número ingresado es válido: ${numero} `);
+  } catch (error) {
+    //Manejar el error y mostrar un mensaje claro.
+    console.log(`Error: ${error.message}`);
+  }
+}
+
+// Probar la funcion con diferentes valores.
+procesarDatos("texto"); // Error: El dato ingresado no es un número válido.
+procesarDatos(42); // El número ingresado es válido: 42.
+```
+
+Conclusión
+
+El manejo de errores en JavaScript con try-catch nos permite anticipar y gestionar problemas en nuestro código. Esto es especialmente útil para evitar errores inesperados que puedan interrumpir la ejecución de una aplicación. Implementar mensajes personalizados con throw no solo mejora la claridad de nuestros programas, sino que también facilita su depuración y mantenimiento.
+
+Espero que esta explicación sobre el manejo y la personalización de errores en JavaScript te sea útil. ¡Practica estos conceptos para fortalecer tus habilidades en el desarrollo web!
+
+[indice](#fundamentos-jonmircha)
+
+## **17. break & continue 8:42**
+
+Vamos a continuar, y en clases anteriores ya habíamos visto el uso de estructuras de control como condicionales y ciclos. De hecho, cuando les mostraba el uso de la instrucción switch-case, en cada uno de los casos utilizábamos la palabra break para romper el flujo de ejecución de los casos del switch.
+
+Les mencioné que lo que hace break es salir de la estructura, en este caso del switch, para evitar leer todos los casos. Entonces, el día de hoy, como ya se habrán dado cuenta en el título del video, vamos a ver precisamente para qué nos sirve break y otra palabra muy parecida llamada continue.
+
+Estas palabras nos ayudan a controlar el flujo de nuestras estructuras de control, sobre todo cuando, por ejemplo, estamos en un bucle y queremos detenernos al alcanzar cierto número de repeticiones o romper la estructura. Por otro lado, a veces resulta útil solo saltarnos ciertas iteraciones de un bucle según un patrón.
+
+Imagínense que, de una lista, queremos imprimir solo los números pares o solo los números impares. Para esto, break o continue nos pueden ser de gran ayuda.
+
+Ahora vamos a ver un pequeño ejercicio:
+
+```js
+const numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+```
+
+Vamos a recorrer este arreglo. ¿Por qué no utilizamos el método forEach de los arreglos? Bueno, las palabras reservadas break y continue no se pueden usar en métodos de los arreglos. Estas están destinadas para utilizarse en estructuras de control como for, while, do-while, if, switch-case, etcétera. Por eso, recorreremos el arreglo utilizando un for.
+
+Ejemplo con for:
+
+```js
+for (let i = 0; i < numeros.length; i++) {
+  console.log(numeros[i]);
+}
+```
+
+Ahora imaginen:
+
+Quiero que cuando i valga 5, el bucle termine. Para esto usamos break.
+
+Ejemplo con break:
+
+```js
+for (let i = 0; i < numeros.length; i++) {
+  if (i === 5) {
+    break;
+  }
+
+  console.log(numeros[i]);
+}
+```
+
+¿Qué pasa aquí?
+
+La sentencia break, como ya lo habíamos visto en switch-case, termina la ejecución de la estructura en la que se encuentra, que en este caso es el for.
+
+Si se dan cuenta, después del número 4, el bucle se interrumpe y ya no imprime del 6 al 0 porque se ha salido del ciclo al cumplirse la condición i === 5.
+
+Ejemplo con continue:
+
+¿Qué pasa si queremos omitir solo la iteración en la que i vale 5, pero queremos que el ciclo continúe? Utilizamos continue.
+
+```js
+for (let i = 0; i < numeros.length; i++) {
+  if (i === 5) {
+    continue;
+  }
+
+  console.log(numeros[i]);
+}
+```
+
+¿Qué hace continue?
+
+A diferencia de break, que termina todo el ciclo, continue solo omite la iteración actual y el bucle continúa con las siguientes iteraciones.
+
+Resultado esperado con continue:
+
+El código imprime:
+
+```
+1
+2
+3
+4
+5
+6
+7
+8
+9
+0
+```
+
+Cuando la condición i === 5 se cumple, se omite la impresión de ese número (en este caso, el valor 6 en el arreglo) y el ciclo continúa con las siguientes iteraciones.
+
+**Diferencias clave entre break y continue:**
+
+break:
+
+- Termina el ciclo en el momento en que se ejecuta.
+- Útil cuando necesitamos salir completamente de un bucle o estructura de control.
+
+continue:
+
+- Solo omite la iteración actual del ciclo y continúa con las siguientes.
+- Útil cuando queremos ignorar ciertas condiciones específicas pero seguir con el resto del bucle.
+
+Conocer estas palabras reservadas es esencial para controlar el flujo de nuestras estructuras de control y desarrollar programas más robustos.
+
+[indice](#fundamentos-jonmircha)
+
+## **18. Destructuración 9:08**
+
+En las clases anteriores creo que hemos terminado de abordar bastante bien los conceptos básicos para comenzar a programar en JavaScript. En los siguientes vídeos voy a continuar con algunas de las nuevas características que tenemos a nivel de escritura y de algunas de las nuevas capacidades que han llegado al lenguaje gracias al estándar de ECMAScript 6, introducido en el año 2015.
+
+El día de hoy quiero comenzar con una práctica que es muy utilizada: la desestructuración o destructuring. La desestructuración es una nueva forma de asignar valores, sobre todo de arreglos y objetos. Si estás en el mundo de JavaScript utilizando librerías o frameworks como Angular, React o Vue, seguramente has usado este tipo de sintaxis, que permite asignar dinámicamente lo que viene en un arreglo o en un objeto a nuevas variables de una manera más ágil. Por ejemplo, cuando recibes en ReactJS las propiedades de un componente padre hacia un componente hijo.
+
+Imagínense que tenemos un arreglo de números y tengo la necesidad de, a partir de este arreglo, guardar cada una de las posiciones, es decir, cada uno de los valores, en variables diferentes.
+
+```js
+const numeros = [1, 2, 3];
+```
+
+¿Cómo sería con desestructuración?
+
+Creo un arreglo al cual le voy a asignar el contenido del arreglo de números que tengo guardado en la variable numeros. Entonces, dinámicamente, lo que estoy haciendo es lo siguiente: sé que numeros es un arreglo, y a cada una de las posiciones de ese arreglo las estoy guardando dinámicamente en estas variables: uno, dos y tres. Vean que en el momento que mando un console.log, obtengo los valores correspondientes a cada posición.
+
+```js
+const [uno, dos, tres] = numeros;
+console.log(uno, dos, tres); // salida: 1 2 3
+```
+
+Ahora, imagínense que tengo una variable llamada persona, que es igual a un objeto. Es muy importante tener en cuenta que nombre, apellido y edad son propiedades del objeto persona. Si quisiera realizar una desestructuración similar, hago lo mismo que en el ejemplo anterior, solo que en este caso es un objeto, no un arreglo. Por lo tanto, le digo que dentro de ese objeto van a ir las variables, y les asigno las propiedades correspondientes del objeto persona.
+
+Después, si me dirijo al console.log e imprimo las variables nombre, apellido y edad, vean que he logrado esa desestructuración. Es decir, he creado dinámicamente estas tres variables (nombre, apellido y edad) y les he asignado los valores de las propiedades del objeto persona.
+
+```js
+let persona = {
+  nombre: "Jon",
+  apellido: "Mircha",
+  edad: 35,
+};
+
+let { nombre, apellido, edad } = persona;
+
+console.log(nombre, apellido, edad);
+```
+
+Conclusión:
+
+La desestructuración o destructuring permite asignar de forma dinámica valores de arreglos u objetos a variables específicas, haciéndolo de manera más eficiente y clara. Es una característica introducida con ES6 que es ampliamente utilizada en librerías y frameworks modernos como React, Vue o Angular.
 
 [indice](#fundamentos-jonmircha)
