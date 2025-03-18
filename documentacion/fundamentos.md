@@ -14,6 +14,7 @@
 1. [18. Destructuración](#18-destructuración-908)
 1. [19. Objetos literales](#19-objetos-literales-719)
 1. [20 Parámetros REST Operador Spread](#20-parámetros-rest-operador-spread)
+1. [45 Asincronía y Event Loop](#45-asincronía-y-el-event-loop)
 
 ## Introducción
 
@@ -2355,5 +2356,66 @@ Spread Operator:
 
 - Desglosa los elementos de un arreglo u objeto en elementos individuales. 
 - Se usa para expandir valores en llamadas a funciones, arreglos u objetos.
+
+[indice](#fundamentos-jonmircha)
+
+## 45 Asincronía y el Event Loop
+
+Estamos en esta serie, en esta parte del curso, en el cual te voy a explicar lo que es la asincronía y cómo funciona en JavaScript. De hecho, hoy es un vídeo teórico. He preparado unos conceptos que espero te queden a la perfección, de manera muy sencilla, para que entiendas justamente cómo es que la asincronía funciona en JavaScript. Entonces, pasemos a la vista del código y, muy importante, como les mencioné ahí antes de comenzar a tirar líneas de código asíncrono, la asincronía es uno de los pilares fundamentales de JavaScript, ya que JavaScript es un lenguaje de un solo subproceso o hilo, es decir, lo que se conoce como "single thread", lo que significa que solo puede ejecutar una cosa a la vez. Sí, entonces, es muy importante entender estos conceptos, antes de pasar, digamos, a tirar líneas de programación. Entonces, te voy a ir contando algunas características.
+
+Les decía que JavaScript es un lenguaje single thread y, si bien los idiomas de un solo hilo simplifican la escritura de código porque no tenemos que preocuparnos por los problemas de concurrencia, por ejemplo, eso del recolector de basura que existe en otros lenguajes de programación, digamos que eso ya lo hace internamente el lenguaje de programación. Sí, ahora, esto también significa que no se pueden realizar operaciones largas, como el acceso a la red, sin que se bloquee el hilo principal. Esa es una de las principales, digamos, preocupaciones en un lenguaje que trabaja en un solo hilo como lo es JavaScript. Por ejemplo, imagínate que solicitas datos a una API, dependiendo de la situación de la red del servidor, esto puede tardar mucho tiempo o poco tiempo en procesar, pues justamente esa solicitud y, mientras, si el hilo principal de tu código pues se quedaría bloqueado y esto haría que la página web no respondiera y ahí es donde entra en juego la asincronía, que permite justamente realizar largas solicitudes de red sin bloquear el hilo principal. JavaScript fue justamente diseñado para ser ejecutado en navegadores, trabajar con peticiones hacia la red y procesar las interacciones con el usuario y esto y, al mismo tiempo, pues tratar de mantener una interfaz lo más posiblemente fluida. Ahora, JavaScript trabaja bajo un modelo asíncrono y no bloqueante y tiene un loop de eventos implementado de un solo hilo, lo que se conoce como single thread para operaciones de entrada y salida y, gracias a esto, es que JavaScript es altamente concurrente, a pesar de que sea un lenguaje de un solo hilo. Por eso es importante que expliquemos qué carajos es el procesamiento single thread y multi thread, qué carajos son las operaciones de entrada de salida y también tenemos que hablar, digamos, como de su contraparte que serían las operaciones de CPU, qué es una operación concurrente y una operación paralela, qué sería una operación bloqueante y no bloqueante y, finalmente, qué sería una operación síncrona y una operación asíncrona. Primero, seguramente por ahí has escuchado el concepto de event loop en JavaScript.
+
+Digamos que los threads, los hilos, son las unidades básicas de ejecución de cada proceso que realiza nuestra máquina. Por ejemplo, cada que tú abres el navegador o tu editor de código, pues en tu computadora se levanta un proceso e internamente esos procesos pueden correr varios hilos o un solo hilo, sí, que es lo que ejecuta justamente su funcionalidad. Entonces, dependiendo de las características del lenguaje, van a haber lenguajes que trabajan en un solo hilo, conocido como single thread, y lenguajes que trabajan en multi hilos o multi thread. Entonces, JavaScript tiene un solo hilo de ejecución.
+
+Ahora, muy importante, recuerden que tanto Node.js como este JavaScript, pues es lo mismo. La diferencia es que el JavaScript de los navegadores, digamos que el runtime se encuentra en los navegadores, mientras que el ambiente de desarrollo de JavaScript del lado servidor es Node.js, pero, digamos, tanto en los navegadores como en el servidor, JavaScript se comporta de la misma manera. Entonces, esta explicación que te estoy dando, pues también sirve para el ambiente de Node.js.
+
+Hay un concepto en el mismo runtime de JavaScript, se llama el call stack y este va apilando justamente las tareas y aquí vamos viendo cómo se van procesando y, dependiendo de si son síncronas o asíncronas, podemos ver cómo cada una se va liberando. Ahora, es muy importante, JavaScript trabaja bajo una filosofía que se llama LIFO, que significa "last-in-first-out", o sea, la última en entrar es la primera en salir, no, la manera en cómo se van ejecutando las operaciones, digamos que eso es lo que vendría a significar esta parte de procesamiento single thread y multi thread.
+
+                  ¿Qué son las operaciones de CPU y de entrada?
+
+Ahora, muy importante, qué son las operaciones de CPU y las operaciones de entradas. Digamos que en un procesamiento en el código de una aplicación podemos tener operaciones de este tipo. Las operaciones que se consideran como de CPU son aquellas que van a pasar el mayor tiempo consumiendo justamente los procesos de nuestra CPU. Sí, por ejemplo, se acuerdan por ahí cuando vimos el tema de los loops y que por ahí este les decía que si caemos, por ejemplo, en un error lógico donde a lo mejor hagamos que el loop se vuelva infinito, pues eso va a empezar a consumir la memoria de nuestro navegador y, de repente, podemos causar que se trabe porque nunca está terminando ese for, ese for se vuelve infinito, esa sería una operación de CPU porque, incluso por justamente ese error de lógica, está haciendo que el JavaScript consuma más rendimiento de la máquina y, pues, por ende, incluso el navegador llegue a trabarse. Sí, esas son operaciones de CPU. Mientras que vamos a tener, por otro lado, las operaciones de entrada o salida, o por su acrónimo en inglés, input/output, van a ser aquellas operaciones que van a pasar la mayor parte del tiempo esperando la petición del recurso que han solicitado y por recurso llámese, imagínense que vamos a enviar un formulario a que se procese en un servidor y, pues, nos mande la notificación de que sea procesado tu información, no, o por ejemplo cuando están haciendo un pago en línea, si estamos esperando a que el API cobre y responda los datos o cuando solicitan datos a una API y que se los devuelve en JSON, que más adelante, cuando veamos AJAX, bueno, veremos las diferentes técnicas que existen en JavaScript. Entonces, esas son operaciones de CPU y operaciones de entrada y salida. En JavaScript podemos ejecutar ambas, pero en la mayoría de los casos, pues por las características del lenguaje, JavaScript se va a comportar haciendo operaciones de entrada y salida.
+
+                  Operaciones concurrentes y paralelas
+
+Ahora, muy importante, hay que entender lo que es la concurrencia y el paralelismo, que también son conceptos muy asociados cuando nos introducimos a este mundo de escribir código síncrono asíncrono. La concurrencia significa, digamos, es cuando dos o más tareas progresan simultáneamente, es decir, se están ejecutando al mismo tiempo y ahí van avanzando simultáneamente. Sí, mientras que el paralelismo es cuando dos o más tareas se ejecutan al mismo tiempo, es decir, digo uno, dos, tres punto y empiezan a correr. La concurrencia podría parecer lo mismo, pero justamente la clave está en la palabra "progresar" que les acabo de decir. Entonces, algo es concurrente cuando pues diferentes tareas están progresando simultáneamente, o sea, al mismo tiempo, pero puede ser que una empezó antes o después y ahora aquí suele la gente asociar a que concurrente se relaciona con síncrono, pero podemos tener concurrencia en un entorno síncrono y en un entorno asíncrono, pero ahorita, digamos, como para entenderlo a un bajo nivel, la concurrencia es cuando varias tareas van progresando al mismo tiempo, mientras que paralelismo es esas tareas se ejecutan, se ejecutan al unísono y ahora esto también crea conflicto porque dicen, "ah, entonces si se van a ejecutar paralelamente significa que estamos hablando de multi thread", pero dependiendo de las características del lenguaje, pues también se podría dar paralelismo en un single thread, pero asíncrono, sí, entonces hay variantes, aunque sí, digamos, single thread está más relacionado a la concurrencia y ya no bloqueante y asíncrono, pero por ejemplo, JavaScript es single thread y podemos tener operaciones síncronas y también operaciones asíncronas.
+
+                    Operaciones bloqueantes y no bloqueantes
+
+Ahora, qué pasa cuando una operación es bloqueante y no bloqueante. Lo bloqueante y no bloqueante se refiere a la fase de espera, digamos, siempre va en una fase de espera cada que se va ejecutando una operación de nuestro código. Entonces, si una operación es bloqueante o no bloqueante se va a referir a cómo toma esa fase de espera. Entonces, una operación bloqueante es aquella que no va a devolver el control a la aplicación hasta que haya terminado toda su tarea. Sí, por ejemplo, operación 1, operación 2, operación 3, es decir, cada una de estas tareas internas no van a devolver el hilo, la ejecución al hilo principal hasta que hayan terminado sus tareas. Sí, y no bloqueante significa que las operaciones se ejecutan y devuelven inmediatamente el control al hilo principal, no importando si han terminado o no la tarea. En el momento que una tarea no bloqueante se acabe, mandará una notificación y entonces ya se avisará al hilo.
+
+Ahora, ya hablando particularmente de JavaScript, con lo anterior, en JavaScript vamos a tener dos tipos de código: 'el código síncrono bloqueante' y 'el código asíncrono no bloqueante'. Obviamente, en un single thread, en la mayoría de los casos, con operaciones de entrada y salida.
+
+Vamos a ver un par de ejemplos. Por ejemplo, en un código síncrono bloqueante, cada operación se hace de una vez, bloqueando el flujo del hilo principal. Este hilo queda bloqueado mientras espera la respuesta. Cuando esta se procesa, pasa a la siguiente operación y así sucesivamente hasta terminar las operaciones. Entonces, fíjense, voy a ejecutar, voy a poner aquí una función anónima autoejecutable: `(()=>{})()` y ahora voy a escribir un código bloqueante y vamos a explicar por qué. Ahora, como el mismo código tienen los mismos nombres de función, por eso es que estoy utilizando el paradigma de las funciones anónimas autoejecutables, como, digamos, para que el código que yo escriba aquí, pues no impacte con el que escribo acá, no, porque están en scope diferentes y porque voy a escribir los mismos nombres, justamente para que ustedes se den cuenta de cómo podemos tener código bloqueante y código síncrono bloqueante y código asíncrono no bloqueante. Muy bien, este sería el ejemplo de un código síncrono, es decir, cada `console.log()` pues toma el control del hilo del event loop de JavaScript y se ejecuta, termina la ejecución y pasa al siguiente. Luego tenemos dos funciones definidas, esto lo toma en memoria JavaScript y luego de este código síncrono inicio, se ejecuta la función número uno `function uno(){...}` y qué tiene la función número uno internamente, a, miren, imprime un número uno, luego ejecutamos dos que internamente dos pues se ejecuta el número dos y luego de ejecutar la función 2 ejecuta el `console.log("tres")`. Después de que se hacen estas tres operaciones síncronas y bloqueantes, el `uno()` libera el hilo y entonces podemos ejecutar el "fin" del `console.log()`.
+
+```js
+(() => {
+  console.log("Código Síncrono");
+  console.log("Inicio");
+
+  function dos() {
+    console.log("Dos");
+  }
+
+  function uno() {
+    console.log("Uno");
+    dos();
+    console.log("Tres");
+  }
+
+  uno();
+  console.log("Fin");
+})();
+```
+
+salida en la terminarl:
+
+```
+Código Síncrono
+Inicio
+Uno
+Dos
+Tres
+Fin
+```
 
 [indice](#fundamentos-jonmircha)
