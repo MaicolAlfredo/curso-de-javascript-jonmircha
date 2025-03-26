@@ -2,6 +2,7 @@
 
 1. [Introducción](#introducción)
 1. [Caracteristica y Gramática](#caracteristica-y-gramática)
+1. [3. variables var y let](#3-variables-var-y-let)
 1. [9.undefined, null & NaN](#9-undefined-null--nan)
 1. [10. Funciones](#10-funciones)
 1. [11. Arreglos](#11-arreglos)
@@ -319,6 +320,159 @@ Estos no almacenan el valor directamente, sino una referencia a la memoria donde
 - 🔹 Compuestos → Se accede por referencia y pueden modificarse en memoria.
 
 ➡ Próximo tema: Variables en JavaScript y diferencias entre var, let y const.
+
+[indice](#fundamentos-jonmircha)
+
+## 3. Variables 'var' y 'let'
+
+¿Qué es una variable en JavaScript?
+Una variable en JavaScript es un espacio en la memoria de nuestra computadora destinado a almacenar datos. Como vimos en la sesión anterior, en JavaScript existen diferentes tipos de datos: Datos primitivos: como cadenas de texto (strings), números (numbers), booleanos (true o false), entre otros. Datos compuestos: como objetos, arreglos, funciones, clases, etcétera. Todos estos tipos de valores pueden ser almacenados en una variable.
+
+¿Cómo se declara una variable en JavaScript?
+Inicialmente, utilizamos la palabra reservada `var` seguido del nombre que queremos declarar por ejemplo hola y le asignamos el valor "hola mundo": Si guardamos este código y lo ejecutamos, podemos ver el valor de la variable en la consola usando `console.log(hola)`. ¡Y ahí está! La variable hola contiene el valor "hola mundo".
+
+```js
+var hola = "hola mundo";
+
+console.log(hola); //salida: hola mundo
+```
+
+### **El ámbito (scope) de las variables en JavaScript**
+
+Ahora, hay un detalle importante: las variables en los lenguajes de programación tienen un ámbito de existencia, lo que se conoce como el scope. En JavaScript, antes del año 2015 (es decir, antes de ECMAScript 6 o ES6), existían dos tipos de scope:
+
+1. Scope global: El alcance de la variable abarca todo el documento.
+
+2. Scope funcional: Las variables declaradas dentro de una función solo están disponibles dentro del cuerpo de esa función.
+
+Sin embargo, en otros lenguajes de programación (como C o Java), el ámbito de las variables es por bloque. Esto era una de las críticas que muchos programadores hacían a JavaScript cuando venían de otros lenguajes.
+
+¿Qué es un bloque de código?
+Un bloque de código es un conjunto de instrucciones delimitado por llaves {}. Por ejemplo, en estructuras de programación como:
+
+- Estructuras condicionales: como if, else, etc.
+
+- Estructuras repetitivas: como for, while, etc.
+
+En otros lenguajes, si declaras una variable dentro de un bloque, su alcance se limita a ese bloque. Por ejemplo:
+
+```js
+if (condicion) {
+  var a = 3;
+}
+```
+
+Sin embargo, JavaScript no contaba con lo que se conoce como ámbito de bloque. Esto significa que, antes de ES6 (ECMAScript 2015), algo muy curioso ocurría con la declaración de variables. Todas las variables que declarabas dentro de bloques como if, for o while no se limitaban a ese bloque, sino que tenían un alcance más amplio.
+
+En el caso de que la variable estuviera declarada dentro de una función, el compilador del navegador la "elevaba" al inicio de la función, es decir, la movía al lugar donde comenzaba la definición de la función. Si no había una función, como en el caso de declarar una variable dentro de un if, el navegador la colocaba automáticamente en el ámbito global.
+
+Esta característica de JavaScript se conoce como elevación o, en inglés, **hoisting**. Se considera una **mala práctica** porque, si estabas acostumbrado a otros lenguajes de programación como C o Java, donde las variables declaradas dentro de un bloque (if, for, etc.) existían solo dentro de ese bloque, en JavaScript no ocurría lo mismo. Aquí, el alcance de las variables se extendía a toda la función donde estaban definidas o, en su defecto, al ámbito global del documento.
+
+```js
+var a = 3;
+if (condicion) {
+}
+```
+
+Entonces, esto cambió con ECMAScript 6, es decir, desde el año 2015. Ahora ya tenemos ámbitos de bloque, pero para eso necesitamos, en lugar de declarar nuestra variable con la palabra 'var', declararla con la palabra `let`. Entonces, lo que ustedes tienen que entender es que si tú declaras una variable con la palabra 'var', pues esa variable va a ser de ámbito global. En cambio, cuando tú declaras una variable con la palabra reservada 'let', va a ser una variable de ámbito de bloque. Ahora, entonces, lo que ustedes tienen que entender es: no vuelvan a usar 'var' porque es una mala práctica, porque, sobre todo cuando las líneas de código vayan aumentando en tus archivos y la lógica se vuelve más compleja, por ahí el utilizar variables globales te pueden meter en un problema de reasignación de valores. Ahora, fíjense, por ejemplo, yo tengo declarado aquí la variable 'hola' y la variable 'hello'. Una es global y la otra es de bloque. ¿Cuál es el objeto donde se almacena, digamos, el ámbito global en el JavaScript de los navegadores? Ese es el objeto `window`. El objeto `window` pues representa el objeto que mapea toda la ventana del navegador para JavaScript. Ven que si yo mando un `console.log(window)`, pues vean que aquí me dice todo lo que contiene el objeto `window` y quiero que vean que después de todas las propiedades que trae el navegador, hay una variable que se llama 'hola' con el valor de 'hola mundo'. Pero quiero que vean que no hay una que se llame 'hello'. Todas las variables que tú declaras con la palabra 'var' se van a quedar en el scope global del documento, es decir, si las defines directamente en tu archivo JavaScript. Entonces, vean cómo si yo aquí mando imprimir un `console.log(window.hola)` y de `window.hello`, pues van a ver que la variable 'hola' sí se va a imprimir en la consola, mientras que la variable que fue definida con 'let' me manda un 'undefined'. ¿Por qué me manda un undefined? Porque justamente la palabra reservada 'let' solamente permite que la variable exista en el bloque que ha sido definido.
+
+```js
+var hola = "hola Mundo";
+let hello = "Hello World";
+
+console.log(hola);
+console.log(hello);
+console.log(window);
+console.log(window.hola);
+console.log(window.hello);
+```
+
+Les voy a poner otros ejemplos. Ya les había dicho que un bloque en JavaScript simplemente es lo que está separado por un juego de llaves o "curly braces", como se llaman en inglés. vean por qué es una mala práctica trabajar con variables declaradas con `var`. Fíjense que si yo tengo una variable que se llama 'música', vamos a decir que la variable 'música' va a empezar con el valor de "Rock": `var musica = "Rock";`. Entonces si mando un `console.log()`, vamos a poner un mensaje que diga "variable música antes del bloque" y vamos a imprimir la variable 'música': `console.log("Variable Musica antes del bloque", musica)`.
+
+Muy importante, recuerden que este objeto lo vamos a estar utilizando muchísimo. El `console.log()` me permite imprimir en la consola, en este caso del navegador, pues todo lo que yo necesite imprimir y, sobre todo ahorita que vamos a estar aprendiendo fundamentos básicos, va a ser muy importante la consola.
+
+muy importante, aprovechando, esto es un comentario de JavaScript: `// esto es un comentario`. Si es un comentario de una línea, si ustedes quieren hacer comentarios de varias líneas, entonces es como en CSS: `/* */`.
+
+```js
+var musica = "Rock";
+console.log("Variable Musica antes del bloque", musica);
+//Esto es un bloque
+{
+}
+```
+
+Imagínense que necesito que, dentro de este bloque, el valor de la variable "música" cambie. Es muy importante que sepan que se puede utilizar el mismo nombre y volver a declarar esta variable. La variable "música" dentro del bloque será totalmente diferente a la variable "música" que está fuera de él. Esto sucede porque, al tener este bloque, estamos en otro scope (ámbito) o en otro bloque de variables. Esto nos permite la redeclaración. Imaginen que aquí el valor de mi variable sea "Pop". `var musica = "Pop";` Vamos a imprimir un mensaje muy similar que diga "variable música dentro del bloque":`console.log("Variable Música dentro del Bloque", musica);`
+
+```js
+var musica = "Rock";
+console.log("Variable Musica antes del Bloque", musica);
+//Esto es un bloque
+{
+  var musica = "Pop";
+  console.log("Variable Música dentro del Bloque", musica);
+}
+```
+
+y dentro del bloque pues vean que me dice que el valor es pop
+
+```bash
+Variable Música antes del Bloque Rock
+Variable Música dentro del Bloque Pop
+```
+
+Y es aquí donde surgía la confusión, sobre todo para programadores que venían de otros lenguajes. Incluso, las confusiones se presentaban por la manera en que fue creado JavaScript. Cuando alguien novato aprendía JavaScript sin tener fundamentos de programación en otro lenguaje, a menudo caía en malas prácticas. Esto ocurría porque no se estaba consciente de esos pequeños detalles que se van percibiendo al ganar experiencia desarrollando con el lenguaje.
+
+Entonces, fíjense aquí: si yo coloco la variable "música" después del bloque, la lógica me indicaría que, "bueno", dentro de las llaves, la variable vale "Pop", ¿no? Sin embargo, después del bloque debería respetar el valor del archivo principal. Entonces, la lógica me debería indicar eso, y es lo que ocurre en muchos lenguajes de programación. En JavaScript, esto no ocurría hasta después del 2015; aquí, nuevamente, la variable "música" debería valer "Rock".
+
+```js
+var musica = "Rock";
+console.log("Variable Musica antes del Bloque", musica);
+//Esto es un bloque
+{
+  var musica = "Pop";
+  console.log("Variable Música dentro del Bloque", musica);
+}
+
+console.log("Variable Música despues del Bloque", musica);
+```
+
+pero vamos a ver si es cierto miren me está imprimiendo que la variable música después del bloque vale "Pop"
+
+```bash
+Variable Música antes del Bloque Rock
+Variable Música dentro del Bloque Pop
+Variable Música despues del Bloque Pop
+```
+
+¿Por qué? Porque este es el concepto que les mencionaba de la elevación de variables, o del hoisting. Lo que está haciendo aquí JavaScript es, al volver a declarar una variable "música" dentro del bloque, considerarla diferente a la declarada fuera del bloque. Para mí, los scopes (ámbitos o alcances) de las variables se definen por función o globalmente en el documento. Por eso, lo que hace JavaScript es "subir" la variable.
+
+```js
+var musica = "Rock";
+console.log("Variable Musica antes del Bloque", musica);
+var musica = "Pop";
+//Esto es un bloque
+{
+  console.log("Variable Música dentro del Bloque", musica);
+}
+
+console.log("Variable Música despues del Bloque", musica);
+```
+
+Esto, por lo tanto, generaba una serie de confusiones, especialmente cuando se está empezando. Ahora bien, desde 2015, con la declaración de variables usando let, observen: voy a copiar exactamente el mismo código, pero en lugar de utilizar var, usaremos la palabra reservada let en todos los casos, y luego analizaremos.
+
+```js
+let musica = "Rock";
+console.log("Variable Musica antes del Bloque", musica);
+//Esto es un bloque
+{
+  let musica = "Pop";
+  console.log("Variable Música dentro del Bloque", musica);
+}
+
+console.log("Variable Música despues del Bloque", musica);
+```
+
+La mala práctica de utilizar `var` radica en que no respeta los scopes del bloque. Miren: mi variable "música" empieza con "Rock", imprime "Rock", entra al bloque e imprime "Pop". Al salir del bloque, debería imprimir "Rock" nuevamente; eso es lo que sucedería en cualquier lenguaje de programación, excepto en JavaScript hasta el 2014. Observen que, por eso, imprime "Pop". Ahora, si nos vamos a los ejemplos de `let`, quiero que vean cómo aquí ha impreso "Rock" porque es el valor inicial de la variable "música". Luego, entra al bloque e imprime "Pop", sale del bloque y, nuevamente, imprime "Rock", porque ya está respetando ese comportamiento de bloque. Como lo veíamos, si en el objeto window tú declaras una variable con var, se va a crear y se va a quedar guardada ahí; en cambio, si creas una variable con let, no se va a guardar en el objeto window, que representa el objeto global dentro del navegador.
 
 [indice](#fundamentos-jonmircha)
 
